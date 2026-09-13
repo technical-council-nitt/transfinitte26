@@ -1,0 +1,90 @@
+.loading-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  isolation: isolate;
+  background: #050505;
+  color: #f2f2f0;
+  font-family: "Space Mono", monospace;
+}
+
+.loading-scanlines,
+.loading-vignette,
+.loading-sweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.loading-scanlines {
+  z-index: 5;
+  background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.028) 0 1px, transparent 1px 3px);
+  mix-blend-mode: overlay;
+}
+
+.loading-vignette {
+  z-index: 6;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.85) 100%);
+}
+
+.loading-sweep {
+  z-index: 4;
+  height: 40%;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  animation: loading-sweep 4.5s ease-in-out infinite;
+}
+
+@keyframes loading-sweep { from { transform: translateY(-140%); } to { transform: translateY(340%); } }
+
+.loading-bracket { position: absolute; z-index: 3; width: 34px; height: 34px; border: 1.5px solid #8a8a86; opacity: 0.8; }
+.loading-bracket.tl { top: 5vh; left: 5vh; border-right: 0; border-bottom: 0; }
+.loading-bracket.tr { top: 5vh; right: 5vh; border-left: 0; border-bottom: 0; }
+.loading-bracket.bl { bottom: 5vh; left: 5vh; border-right: 0; border-top: 0; }
+.loading-bracket.br { right: 5vh; bottom: 5vh; border-left: 0; border-top: 0; }
+
+.loading-telemetry { position: absolute; z-index: 3; left: 5vh; right: 5vh; display: flex; justify-content: space-between; color: #8a8a86; font-size: 11px; letter-spacing: 0.12em; }
+.loading-telemetry.top { top: 6.2vh; }
+.loading-telemetry.bottom { bottom: 6.2vh; }
+.loading-telemetry strong { color: #f2f2f0; font-weight: 400; }
+.loading-telemetry i { animation: loading-blink 1.6s steps(1) infinite; font-style: normal; }
+@keyframes loading-blink { 50% { opacity: 0.15; } }
+
+.loading-core { position: relative; width: 420px; height: 420px; display: flex; align-items: center; justify-content: center; }
+.loading-ring { position: absolute; border: 1px solid #3a3a38; border-radius: 50%; }
+.ring-one { width: 420px; height: 420px; border-style: dashed; animation: loading-spin 40s linear infinite; }
+.ring-two { width: 360px; height: 360px; border-color: #2a2a28; animation: loading-spin 26s linear infinite reverse; }
+.ring-three { width: 300px; height: 300px; border-color: #3a3a38; border-top-color: #f2f2f0; border-right-color: #f2f2f0; animation: loading-spin 3.2s linear infinite; }
+@keyframes loading-spin { to { transform: rotate(360deg); } }
+
+.loading-ticks { position: absolute; width: 388px; height: 388px; animation: loading-spin 60s linear infinite; }
+.loading-ticks span { position: absolute; top: 0; left: 50%; width: 1px; height: 8px; background: #8a8a86; transform-origin: 50% 194px; }
+.loading-ticks span:nth-child(5n + 1) { height: 14px; background: #f2f2f0; }
+.loading-readout { position: relative; z-index: 2; text-align: center; }
+.loading-percent { font-family: "Space Grotesk", sans-serif; font-size: 76px; font-weight: 300; line-height: 1; font-variant-numeric: tabular-nums; }
+.loading-percent sup { color: #8a8a86; font-size: 26px; top: -0.6em; }
+.loading-status { height: 16px; margin-top: 10px; color: #8a8a86; font-size: 12px; letter-spacing: 0.28em; }
+
+.loading-progress, .loading-log { position: absolute; z-index: 3; left: 50%; width: min(70vw, 560px); transform: translateX(-50%); }
+.loading-progress { bottom: 15vh; }
+.loading-bar-label { display: flex; justify-content: space-between; margin-bottom: 8px; color: #8a8a86; font-size: 10.5px; letter-spacing: 0.15em; }
+.loading-bar-track { height: 2px; background: #2a2a28; }
+.loading-bar-track div { height: 100%; background: #f2f2f0; box-shadow: 0 0 8px rgba(242, 242, 240, 0.6); transition: width 0.13s linear; }
+.loading-bar-ticks { display: flex; justify-content: space-between; margin-top: 6px; }
+.loading-bar-ticks span { width: 1px; height: 4px; background: #3a3a38; }
+.loading-log { bottom: 9.2vh; height: 14px; overflow: hidden; color: #3a3a38; font-size: 10px; letter-spacing: 0.04em; }
+.loading-log span { color: #8a8a86; }
+
+@media (max-width: 700px) {
+  .loading-telemetry { left: 5vw; right: 5vw; font-size: 8px; }
+  .loading-telemetry span:nth-child(2) { display: none; }
+  .loading-core { transform: scale(0.72); }
+  .loading-progress, .loading-log { width: 80vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-stage * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
