@@ -6,38 +6,33 @@ import { GOOGLE_CALENDAR_URL } from "../constants";
 
 const Flip = lazy(() => import("./Flip"));
 
-const Header = memo(() => {
-  const handleClick = () => {
-    toast("Coming Soon", {
-      description: "Wednesday, 23 October 2026, 9:00 AM",
-      className: "font-spacemono",
-    });
-  };
-
-  const RegisterButton = ({ className }) => (
-    <Button
-      onClick={handleClick}
-      className={`!flex !h-auto !w-auto !flex-row !items-center !justify-center !gap-1 !rounded-full !border-0 !bg-[#6B7FA3] !px-3 !py-1 !shadow-none !text-white hover:!bg-[#6B7FA3] hover:!text-white dark:!bg-offwhite dark:!text-[#1D1D1F] dark:hover:!bg-offwhite dark:hover:!text-[#1D1D1F] ${className || ""}`}
-    >
-      <span className="text-center font-spacemono text-[0.875rem] not-italic font-bold leading-5 tracking-[0.35px] uppercase">
-        REGISTER
-      </span>
-      <span className="flex items-center">
-        <img
-          src={arrowwh}
-          className="max-w-none w-fit dark:hidden"
-          alt="arrow"
-        />
-        <img
-          src={arrowbl}
-          className="max-w-none w-fit hidden dark:block"
-          alt="arrow"
-        />
-      </span>
-    </Button>
-  );
-
-  const CalendarButton = () => (
+  
+const RegisterButton = ({ className }) => (
+  <Button
+    onClick={() => {
+      window.location.href = "https://register.transfinitte.org";
+    }}
+    className={`!flex !h-auto !w-auto !flex-row !items-center !justify-center !gap-1 !rounded-full !border-0 !bg-[#6B7FA3] !px-3 !py-1 !shadow-none !text-white hover:!bg-[#6B7FA3] hover:!text-white dark:!bg-offwhite dark:!text-[#1D1D1F] dark:hover:!bg-offwhite dark:hover:!text-[#1D1D1F] ${className || ""}`}
+  >
+    <span className="text-center font-spacemono text-[0.875rem] not-italic font-bold leading-5 tracking-[0.35px] uppercase">
+      REGISTER
+    </span>
+    <span className="flex items-center">
+      <img
+        src={arrowwh}
+        className="max-w-none w-fit dark:hidden"
+        alt="arrow"
+      />
+      <img
+        src={arrowbl}
+        className="max-w-none w-fit hidden dark:block"
+        alt="arrow"
+      />
+    </span>
+  </Button>
+);
+  
+const CalendarButton = () => (
     <a
       href={GOOGLE_CALENDAR_URL}
       target="_blank"
